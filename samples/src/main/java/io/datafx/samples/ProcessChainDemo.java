@@ -16,10 +16,6 @@ import java.util.function.Consumer;
 
 public class ProcessChainDemo extends Application {
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -29,12 +25,13 @@ public class ProcessChainDemo extends Application {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                ProcessChain.create().addRunnableInPlatformThread(() -> button.setDisable(true))
+                ProcessChain.create().addRunnableInPlatformThread(() -> {
+                	System.out.println("1 Thread " + Thread.currentThread().getName());
+	                button.setDisable(true);
+                } )
                         .addRunnableInExecutor(() -> communicateWithServer())
-                        .addSupplierInExecutor(() -> {
-                            return "Time in Millis: " + System.currentTimeMillis();
-                        })
-                        .addConsumerInPlatformThread((Consumer<String>) (t) -> label.setText(t.toString()))
+                        .addSupplierInExecutor(() -> "3 Time in Millis: " + System.currentTimeMillis() + ", " + Thread.currentThread().getName())
+                        .addConsumerInPlatformThread((Consumer<String>) (t) -> label.setText(t.toString()  + ", 4 " + Thread.currentThread().getName()))
                         .addRunnableInPlatformThread(() -> button.setDisable(false))
                         .run();
             }
@@ -53,6 +50,7 @@ public class ProcessChainDemo extends Application {
 
     private void communicateWithServer() {
         try {
+	        System.out.println("2 Thread " + Thread.currentThread().getName());
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();

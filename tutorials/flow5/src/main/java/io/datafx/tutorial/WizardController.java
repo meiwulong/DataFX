@@ -89,7 +89,7 @@ public class WizardController {
                 withLink(WizardView4Controller.class, "next", WizardView5Controller.class);
 
         flowHandler = flow.createHandler();
-        centerPane.getChildren().add(flowHandler.start(new AnimatedFlowContainer(Duration.millis(320), ContainerAnimations.ZOOM_IN)));
+        centerPane.getChildren().add(flowHandler.start(new AnimatedFlowContainer(Duration.millis(320), ContainerAnimations.SWIPE_LEFT)));
 
         backButton.setDisable(true);
     }

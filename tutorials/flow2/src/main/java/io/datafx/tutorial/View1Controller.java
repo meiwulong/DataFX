@@ -1,9 +1,14 @@
 package io.datafx.tutorial;
 
 import io.datafx.controller.ViewController;
+import io.datafx.controller.flow.action.ActionMethod;
+import io.datafx.controller.flow.action.ActionTrigger;
+import io.datafx.controller.flow.action.BackAction;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import io.datafx.controller.flow.action.LinkAction;
+
+import javax.annotation.PostConstruct;
 
 /**
  * <p>
@@ -37,7 +42,18 @@ import io.datafx.controller.flow.action.LinkAction;
 @ViewController("view1.fxml")
 public class View1Controller {
 
-    @FXML
-    @LinkAction(View2Controller.class)
-    private Button actionButton;
+	@FXML
+	@ActionTrigger("test")
+	@LinkAction(View2Controller.class)
+	private Button actionButton;
+
+	@PostConstruct
+	private void init(){
+		System.out.println("View1Controller PostConstruct: " + this.toString());
+	}
+
+	@ActionMethod("test")
+	private void test(){
+		System.out.println("test action");
+	}
 }

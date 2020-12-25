@@ -6,7 +6,7 @@
         <groupId>org.javafxdata</groupId>
         <artifactId>datafx-parent</artifactId>
         <version>8.10-SNAPSHOT</version>
-        <relativePath>../</relativePath>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>datafx-flow</artifactId>
@@ -17,6 +17,7 @@
             <artifactId>datafx-core</artifactId>
             <version>${version}</version>
         </dependency>
+
     </dependencies>
 
 </project>

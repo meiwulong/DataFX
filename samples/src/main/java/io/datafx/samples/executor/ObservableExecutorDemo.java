@@ -33,6 +33,7 @@ public class ObservableExecutorDemo extends Application {
                 updateTaskTitle("My Task");
                 long time = 0;
                 long maxTime = (long) (Math.random() * 50000);
+	            System.out.println(Thread.currentThread());
                 while(time < maxTime) {
                     try {
                         Thread.sleep(200);
@@ -40,6 +41,7 @@ public class ObservableExecutorDemo extends Application {
                     time = time + 200;
                     updateTaskProgress(time, maxTime);
                 }
+
                 return null;
             }
         }));

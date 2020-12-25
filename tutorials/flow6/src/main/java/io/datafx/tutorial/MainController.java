@@ -34,6 +34,7 @@ import io.datafx.controller.flow.action.ActionTrigger;
 import io.datafx.controller.flow.context.ActionHandler;
 import io.datafx.controller.flow.context.FlowActionHandler;
 import io.datafx.controller.util.VetoException;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
@@ -43,11 +44,12 @@ import javax.annotation.PostConstruct;
 @ViewController("main.fxml")
 public class MainController {
 
-    @ViewNode
-    private RadioButton radioButton1;
+//    @ViewNode
 
-    @ViewNode
-    private RadioButton radioButton2;
+	@FXML
+	private RadioButton radioButton1;
+	    @ViewNode
+	private RadioButton radioButton2;
 
     @ViewNode
     private RadioButton radioButton3;

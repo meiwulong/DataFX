@@ -74,7 +74,7 @@ public enum ContainerAnimations {
 
     private Function<AnimatedFlowContainer, List<KeyFrame>> animationProducer;
 
-    private ContainerAnimations(Function<AnimatedFlowContainer, List<KeyFrame>> animationProducer) {
+    ContainerAnimations(Function<AnimatedFlowContainer, List<KeyFrame>> animationProducer) {
         this.animationProducer = animationProducer;
     }
 

@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
 import io.datafx.controller.flow.action.ActionTrigger;
 
+import javax.annotation.PostConstruct;
+
 /**
  * This is a view controller for one of the steps in the wizard. All buttons of the action-bar that
  * is shown on each view of the wizard are defined in the AbstractWizardController class. The definition of the
@@ -22,4 +24,10 @@ public class Wizard1Controller extends AbstractWizardController {
     @FXML
     @ActionTrigger("help")
     private Hyperlink helpLink;
+
+
+	@PostConstruct
+	private void init(){
+		System.out.println("Wizard1Controller PostConstruct: " + this);
+	}
 }

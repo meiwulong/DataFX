@@ -97,10 +97,6 @@ public class AbstractContext {
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("AbstractContext{");
-        sb.append("id='").append(id).append('\'');
-        sb.append(", registeredObjects=").append(registeredObjects);
-        sb.append('}');
-        return sb.toString();
+    	return String.format("AbstractContext{id='%s', registeredObjects='%s'}", id, registeredObjects);
     }
 }

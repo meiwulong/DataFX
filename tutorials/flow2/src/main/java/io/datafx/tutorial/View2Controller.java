@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import io.datafx.controller.flow.action.LinkAction;
 
+import javax.annotation.PostConstruct;
+
 /**
  * <p>
  * This class defines the controller for the second view of this example. The @ViewController annotation defines that the
@@ -24,4 +26,9 @@ public class View2Controller {
     @FXML
     @LinkAction(View1Controller.class)
     private Button actionButton;
+
+    @PostConstruct
+    void init(){
+	    System.out.println("View2Controller PostConstruct: " + this.toString());
+    }
 }

@@ -34,6 +34,7 @@ public class WizardStartController extends AbstractWizardController {
 
     @PostConstruct
     public void init() {
+	    System.out.println("WizardStartController PostConstruct: " + this);
         getBackButton().setDisable(true);
     }
 }

@@ -56,6 +56,7 @@ public class Tutorial5Main  extends Application {
         StackPane pane = flowHandler.start(new DefaultFlowContainer());
         primaryStage.setScene(new Scene(pane));
         primaryStage.show();
+//	    new Flow(WizardController.class).startInStage(primaryStage);
     }
 }
 

@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import io.datafx.controller.flow.action.LinkAction;
 
+import javax.annotation.PostConstruct;
+
 /**
  * This is a view controller for one of the steps in the wizard. The "back" and "finish" buttons of the action-bar that
  * is shown on each view of the wizard are defined in the AbstractWizardController class. So this class only needs to
@@ -24,4 +26,9 @@ public class Wizard1Controller extends AbstractWizardController {
     @FXML
     @LinkAction(Wizard2Controller.class)
     private Button nextButton;
+
+	@PostConstruct
+	private void init(){
+		System.out.println("Wizard1Controller PostConstruct: " + this + ", " + nextButton.hashCode());
+	}
 }

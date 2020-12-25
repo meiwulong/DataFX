@@ -28,6 +28,7 @@ package io.datafx.controller.flow.container;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -73,7 +74,7 @@ public class AnimatedFlowContainer implements FlowContainer<StackPane> {
      * @param duration the duration of the animation
      * @param animation the animation type
      */
-    public AnimatedFlowContainer(Duration duration, ContainerAnimations animation) {
+    public  AnimatedFlowContainer(Duration duration, ContainerAnimations animation) {
         this(duration, animation.getAnimationProducer());
     }
 
@@ -93,20 +94,24 @@ public class AnimatedFlowContainer implements FlowContainer<StackPane> {
 
     @Override
     public <U> void setViewContext(ViewContext<U> context) {
-        updatePlaceholder(context.getRootNode());
-
         if (animation != null) {
             animation.stop();
         }
+	    updatePlaceholder(context.getRootNode());
 
         animation = new Timeline();
         animation.getKeyFrames().addAll(animationProducer.apply(this));
-        animation.getKeyFrames().add(new KeyFrame(duration, (e) -> clearPlaceholder()));
+        animation.getKeyFrames().add(new KeyFrame(duration,this::clearPlaceholder));
 
         animation.play();
     }
 
-    /**
+	private void clearPlaceholder(ActionEvent event) {
+		placeholder.setImage(null);
+		placeholder.setVisible(false);
+	}
+
+	/**
      * Returns the {@link ImageView} instance that is used as a placeholder for the old view in each navigation animation.
      * @return
      */
@@ -127,11 +132,6 @@ public class AnimatedFlowContainer implements FlowContainer<StackPane> {
         return root;
     }
 
-    private void clearPlaceholder() {
-        placeholder.setImage(null);
-        placeholder.setVisible(false);
-    }
-
     private void updatePlaceholder(Node newView) {
         if (root.getWidth() > 0 && root.getHeight() > 0) {
             Image placeholderImage = root.snapshot(null, new WritableImage((int) root.getWidth(), (int) root.getHeight()));
@@ -143,9 +143,9 @@ public class AnimatedFlowContainer implements FlowContainer<StackPane> {
         }
         placeholder.setVisible(true);
         placeholder.setOpacity(1.0);
-        root.getChildren().setAll(placeholder);
-        root.getChildren().add(newView);
-        placeholder.toFront();
+        root.getChildren().setAll(placeholder, newView);
+//        root.getChildren().add(newView);
+//        placeholder.toFront();
 
     }
 }

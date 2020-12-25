@@ -6,12 +6,12 @@ import io.datafx.featuretoggle.HideByFeature;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-@ViewController("featureView.fxml")
+@ViewController("/io/datafx/samples/featuretoggle/featureView.fxml")
 public class FeatureController {
 
     @FXML
-    @HideByFeature("PLAY_FEATURE")
-    private Button playButton;
+    @HideByFeature("FEATURE1")
+    private Button button1;
 
     @FXML
     @DisabledByFeature("FEATURE2")

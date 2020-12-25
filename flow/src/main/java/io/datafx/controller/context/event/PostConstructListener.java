@@ -5,5 +5,5 @@ import io.datafx.controller.context.ViewContext;
 @FunctionalInterface
 public interface PostConstructListener {
 
-    public void postConstruct(ViewContext context);
+    void postConstruct(ViewContext context);
 }

@@ -33,6 +33,7 @@ public class WizardDoneController extends AbstractWizardController {
 
     @PostConstruct
     public void init() {
+	    System.out.println("WizardDoneController PostConstruct: " + this);
         nextButton.setDisable(true);
         getFinishButton().setDisable(true);
     }

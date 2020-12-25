@@ -19,7 +19,5 @@ public class SampleApplication extends AbstractFlowApplication {
         return applicationConfiguration;
     }
 
-    public static void main(final String[] args) {
-        launch(args);
-    }
+
 }

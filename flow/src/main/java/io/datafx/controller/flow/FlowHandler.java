@@ -330,11 +330,11 @@ public class FlowHandler {
     }
 
     public void attachBackEventHandler(MenuItem menuItem) {
-        ActionUtil.defineItemAction(menuItem, () -> handleBackActionWithExceptionHandler());
+        ActionUtil.defineItemAction(menuItem, this::handleBackActionWithExceptionHandler);
     }
 
     public void attachBackEventHandler(Node node) {
-        ActionUtil.defineNodeAction(node, () -> handleBackActionWithExceptionHandler());
+        ActionUtil.defineNodeAction(node, this::handleBackActionWithExceptionHandler);
     }
 
     public void attachEventHandler(MenuItem menuItem, String actionId) {
