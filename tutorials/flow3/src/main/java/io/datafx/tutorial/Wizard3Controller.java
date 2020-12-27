@@ -1,9 +1,9 @@
 package io.datafx.tutorial;
 
-import io.datafx.controller.ViewController;
+import io.datafx.flow.view.ViewController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import io.datafx.controller.flow.action.LinkAction;
+import io.datafx.flow.action.LinkAction;
 
 import javax.annotation.PostConstruct;
 

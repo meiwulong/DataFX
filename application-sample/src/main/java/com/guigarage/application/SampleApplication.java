@@ -1,6 +1,6 @@
 package com.guigarage.application;
 
-import io.datafx.controller.flow.Flow;
+import io.datafx.flow.Flow;
 
 public class SampleApplication extends AbstractFlowApplication {
 

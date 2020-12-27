@@ -26,14 +26,14 @@
  */
 package io.datafx.tutorial;
 
-import io.datafx.controller.ViewController;
-import io.datafx.controller.ViewNode;
-import io.datafx.controller.flow.FlowException;
-import io.datafx.controller.flow.action.ActionMethod;
-import io.datafx.controller.flow.action.ActionTrigger;
-import io.datafx.controller.flow.context.ActionHandler;
-import io.datafx.controller.flow.context.FlowActionHandler;
-import io.datafx.controller.util.VetoException;
+import io.datafx.flow.view.ViewController;
+import io.datafx.flow.view.ViewNode;
+import io.datafx.flow.FlowException;
+import io.datafx.flow.action.ActionMethod;
+import io.datafx.flow.action.ActionTrigger;
+import io.datafx.flow.action.resource.ActionHandler;
+import io.datafx.flow.action.FlowActionHandler;
+import io.datafx.util.VetoException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;

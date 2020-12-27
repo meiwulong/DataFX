@@ -1,6 +1,6 @@
 package com.guigarage.application;
 
-import io.datafx.controller.flow.Flow;
+import io.datafx.flow.Flow;
 import io.datafx.core.Assert;
 import javafx.application.Application;
 import javafx.stage.Stage;

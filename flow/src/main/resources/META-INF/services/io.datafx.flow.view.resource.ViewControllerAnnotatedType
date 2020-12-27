@@ -1,0 +1,4 @@
+io.datafx.flow.view.resource.FlowViewAnnotatedType
+io.datafx.flow.view.resource.ActionHandlerAnnotatedType
+io.datafx.flow.view.resource.ConcurrencyProviderAnnotatedType
+io.datafx.flow.view.resource.ResourceBundleAnnotatedType

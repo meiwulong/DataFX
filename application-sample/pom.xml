@@ -15,12 +15,12 @@
         <dependency>
             <groupId>org.javafxdata</groupId>
             <artifactId>datafx-flow</artifactId>
-            <version>${version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.javafxdata</groupId>
             <artifactId>datafx-featuretoggle</artifactId>
-            <version>${version}</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 

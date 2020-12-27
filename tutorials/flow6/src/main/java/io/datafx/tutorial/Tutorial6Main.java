@@ -27,12 +27,8 @@
  package io.datafx.tutorial;
 
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import io.datafx.controller.flow.Flow;
-import io.datafx.controller.flow.FlowHandler;
-import io.datafx.controller.flow.container.DefaultFlowContainer;
+import io.datafx.flow.Flow;
 
 /**
  * Main class of tutorial 6.

@@ -1,12 +1,13 @@
 package io.datafx.tutorial;
 
-import io.datafx.controller.ViewController;
-import io.datafx.controller.flow.action.ActionMethod;
-import io.datafx.controller.flow.action.ActionTrigger;
-import io.datafx.controller.flow.action.BackAction;
+import io.datafx.flow.view.HideView;
+import io.datafx.flow.view.ShowView;
+import io.datafx.flow.view.ViewController;
+import io.datafx.flow.action.ActionMethod;
+import io.datafx.flow.action.ActionTrigger;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import io.datafx.controller.flow.action.LinkAction;
+import io.datafx.flow.action.LinkAction;
 
 import javax.annotation.PostConstruct;
 
@@ -52,8 +53,22 @@ public class View1Controller {
 		System.out.println("View1Controller PostConstruct: " + this.toString());
 	}
 
+
+
 	@ActionMethod("test")
 	private void test(){
 		System.out.println("test action");
 	}
+
+	@ShowView
+	private void show(){
+		System.out.println("View1Controller ShowView: " + this.toString());
+	}
+
+	@HideView
+	private void hide(){
+		System.out.println("View1Controller HideView: " + this.toString());
+	}
+
+
 }

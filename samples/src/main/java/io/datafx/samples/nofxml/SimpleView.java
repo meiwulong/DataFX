@@ -1,6 +1,6 @@
 package io.datafx.samples.nofxml;
 
-import io.datafx.controller.ViewNode;
+import io.datafx.flow.view.ViewNode;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;

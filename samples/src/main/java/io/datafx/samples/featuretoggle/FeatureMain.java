@@ -1,6 +1,6 @@
 package io.datafx.samples.featuretoggle;
 
-import io.datafx.controller.ViewFactory;
+import io.datafx.flow.Flow;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -10,7 +10,7 @@ public class FeatureMain extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Scene myScene = new Scene((Parent) ViewFactory.getInstance().createByController(FeatureController.class).getRootNode());
+        Scene myScene = new Scene((Parent) new Flow(FeatureController.class).wrap());
         stage.setScene(myScene);
         stage.show();
     }

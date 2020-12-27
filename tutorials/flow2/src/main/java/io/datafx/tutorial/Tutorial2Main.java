@@ -2,7 +2,7 @@ package io.datafx.tutorial;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import io.datafx.controller.flow.Flow;
+import io.datafx.flow.Flow;
 
 /**
  * <p>

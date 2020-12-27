@@ -1,0 +1,3 @@
+io.datafx.flow.action.resource.FXMLActionResourceConsumer
+io.datafx.flow.action.resource.BackActionResourceConsumer
+io.datafx.flow.action.resource.LinkActionResourceConsumer

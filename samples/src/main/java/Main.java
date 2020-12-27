@@ -1,3 +1,4 @@
+import io.datafx.samples.ProcessChainDemo;
 import io.datafx.samples.featuretoggle.FeatureMain;
 import io.datafx.samples.nofxml.NoFxmlDemo;
 import javafx.application.Application;
@@ -10,6 +11,7 @@ public class Main {
 	public static void main(String[] args) {
 //		Application.launch(ProcessChainDemo.class, args);
 		Application.launch(FeatureMain.class, args);
+//		Application.launch(NoFxmlDemo.class, args);
 	}
 
 }

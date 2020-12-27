@@ -15,7 +15,7 @@
         <dependency>
             <groupId>org.javafxdata</groupId>
             <artifactId>datafx-flow</artifactId>
-            <version>${version}</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 

@@ -1,9 +1,9 @@
 package io.datafx.samples.nofxml;
 
-import io.datafx.controller.ViewController;
-import io.datafx.controller.ViewNode;
-import io.datafx.controller.flow.action.ActionMethod;
-import io.datafx.controller.flow.action.ActionTrigger;
+import io.datafx.flow.view.ViewController;
+import io.datafx.flow.view.ViewNode;
+import io.datafx.flow.action.ActionMethod;
+import io.datafx.flow.action.ActionTrigger;
 import javafx.scene.control.Button;
 
 @ViewController(root = SimpleView.class)

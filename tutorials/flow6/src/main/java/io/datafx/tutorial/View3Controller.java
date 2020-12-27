@@ -26,7 +26,7 @@
  */
 package io.datafx.tutorial;
 
-import io.datafx.controller.ViewController;
+import io.datafx.flow.view.ViewController;
 
 @ViewController("view3.fxml")
 public class View3Controller extends AbstractViewController {

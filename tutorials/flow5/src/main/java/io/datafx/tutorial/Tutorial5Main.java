@@ -30,9 +30,8 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import io.datafx.controller.flow.Flow;
-import io.datafx.controller.flow.FlowHandler;
-import io.datafx.controller.flow.container.DefaultFlowContainer;
+import io.datafx.flow.Flow;
+import io.datafx.flow.wrapper.DefaultFlowViewWrapper;
 
 /**
  * Main class of tutorial 5.
@@ -49,11 +48,8 @@ public class Tutorial5Main  extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Flow flow  = new Flow(WizardController.class);
 
-        FlowHandler flowHandler = flow.createHandler();
-
-        StackPane pane = flowHandler.start(new DefaultFlowContainer());
+        StackPane pane = new Flow(WizardController.class).wrap(new DefaultFlowViewWrapper());
         primaryStage.setScene(new Scene(pane));
         primaryStage.show();
 //	    new Flow(WizardController.class).startInStage(primaryStage);

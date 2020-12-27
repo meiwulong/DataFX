@@ -26,8 +26,8 @@
  */
 package io.datafx.tutorial;
 
-import io.datafx.controller.ViewNode;
-import io.datafx.controller.flow.action.BackAction;
+import io.datafx.flow.view.ViewNode;
+import io.datafx.flow.action.BackAction;
 import javafx.scene.control.Button;
 
 public abstract class AbstractViewController {

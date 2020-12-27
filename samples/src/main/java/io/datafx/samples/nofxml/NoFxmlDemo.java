@@ -1,6 +1,6 @@
 package io.datafx.samples.nofxml;
 
-import io.datafx.controller.flow.Flow;
+import io.datafx.flow.Flow;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

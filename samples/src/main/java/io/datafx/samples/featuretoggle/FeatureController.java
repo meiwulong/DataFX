@@ -1,6 +1,6 @@
 package io.datafx.samples.featuretoggle;
 
-import io.datafx.controller.ViewController;
+import io.datafx.flow.view.ViewController;
 import io.datafx.featuretoggle.DisabledByFeature;
 import io.datafx.featuretoggle.HideByFeature;
 import javafx.fxml.FXML;

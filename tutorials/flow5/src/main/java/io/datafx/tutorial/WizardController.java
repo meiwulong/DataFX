@@ -26,19 +26,20 @@
  */
 package io.datafx.tutorial;
 
-import io.datafx.controller.ViewController;
+import io.datafx.flow.FxmlLoadException;
+import io.datafx.flow.view.ViewController;
+import io.datafx.flow.Flow;
+import io.datafx.flow.FlowException;
+import io.datafx.flow.FlowHandler;
+import io.datafx.flow.action.ActionMethod;
+import io.datafx.flow.action.ActionTrigger;
+import io.datafx.flow.wrapper.AnimatedFlowViewWrapper;
+import io.datafx.flow.wrapper.AnimationDefine;
+import io.datafx.util.VetoException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
-import io.datafx.controller.flow.Flow;
-import io.datafx.controller.flow.FlowException;
-import io.datafx.controller.flow.FlowHandler;
-import io.datafx.controller.flow.action.ActionMethod;
-import io.datafx.controller.flow.action.ActionTrigger;
-import io.datafx.controller.flow.container.AnimatedFlowContainer;
-import io.datafx.controller.flow.container.ContainerAnimations;
-import io.datafx.controller.util.VetoException;
 
 import javax.annotation.PostConstruct;
 
@@ -82,14 +83,15 @@ public class WizardController {
      */
     @PostConstruct
     public void init() throws FlowException {
-        Flow flow = new Flow(WizardView1Controller.class).
+        var flow = new Flow(WizardView1Controller.class).
                 withLink(WizardView1Controller.class, "next", WizardView2Controller.class).
                 withLink(WizardView2Controller.class, "next", WizardView3Controller.class).
                 withLink(WizardView3Controller.class, "next", WizardView4Controller.class).
                 withLink(WizardView4Controller.class, "next", WizardView5Controller.class);
 
-        flowHandler = flow.createHandler();
-        centerPane.getChildren().add(flowHandler.start(new AnimatedFlowContainer(Duration.millis(320), ContainerAnimations.SWIPE_LEFT)));
+	    StackPane wrap = flow.wrap(new AnimatedFlowViewWrapper(Duration.millis(320), AnimationDefine.SWIPE_LEFT));
+        flowHandler = flow.getHandler();
+        centerPane.getChildren().add(wrap);
 
         backButton.setDisable(true);
     }
@@ -102,9 +104,9 @@ public class WizardController {
      * @throws FlowException If the navigation can't be executed
      */
     @ActionMethod("back")
-    public void onBack() throws VetoException, FlowException {
+    public void onBack() throws VetoException, FlowException, FxmlLoadException {
         flowHandler.navigateBack();
-        if(flowHandler.getCurrentViewControllerClass().equals(WizardView1Controller.class)) {
+        if(flowHandler.getCurrentControllerClazz().equals(WizardView1Controller.class)) {
             backButton.setDisable(true);
         } else {
             backButton.setDisable(false);
@@ -123,7 +125,7 @@ public class WizardController {
     @ActionMethod("next")
     public void onNext() throws VetoException, FlowException {
         flowHandler.handle("next");
-        if(flowHandler.getCurrentViewControllerClass().equals(WizardView5Controller.class)) {
+        if(flowHandler.getCurrentControllerClazz().equals(WizardView5Controller.class)) {
             nextButton.setDisable(true);
             finishButton.setDisable(true);
         } else {

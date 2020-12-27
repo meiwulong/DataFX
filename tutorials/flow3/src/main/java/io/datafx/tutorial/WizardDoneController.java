@@ -1,6 +1,6 @@
 package io.datafx.tutorial;
 
-import io.datafx.controller.ViewController;
+import io.datafx.flow.view.ViewController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
