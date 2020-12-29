@@ -46,14 +46,14 @@ public class DefaultFlowViewWrapper implements FlowViewWrapper<StackPane> {
 
     /**
      * Default constructor that wraps the flow in a {@link StackPane}. The {@link StackPane} instance can be accessed by
-     * calling {@link #getViewWrapper()}.
+     * calling {@link #getWrap()}.
      */
     public DefaultFlowViewWrapper() {
         this(new StackPane());
     }
 
     @Override
-    public StackPane getViewWrapper() {
+    public StackPane getWrap() {
         return pane;
     }
 

@@ -33,14 +33,14 @@ public enum AnimationDefine {
      * A swipe effect
      */
     SWIPE_LEFT((c) ->
-            new ArrayList<>(Arrays.asList(new KeyFrame(Duration.ZERO, new KeyValue(c.getViewWrapper().translateXProperty(), c.getViewWrapper().getWidth(), Interpolator.EASE_BOTH), new KeyValue(c.getPlaceholder().translateXProperty(), -c.getViewWrapper().getWidth(), Interpolator.EASE_BOTH)),
-                    new KeyFrame(c.getDuration(), new KeyValue(c.getViewWrapper().translateXProperty(), 0, Interpolator.EASE_BOTH), new KeyValue(c.getPlaceholder().translateXProperty(), -c.getViewWrapper().getWidth(), Interpolator.EASE_BOTH))))),
+            new ArrayList<>(Arrays.asList(new KeyFrame(Duration.ZERO, new KeyValue(c.getWrap().translateXProperty(), c.getWrap().getWidth(), Interpolator.EASE_BOTH), new KeyValue(c.getPlaceholder().translateXProperty(), -c.getWrap().getWidth(), Interpolator.EASE_BOTH)),
+                    new KeyFrame(c.getDuration(), new KeyValue(c.getWrap().translateXProperty(), 0, Interpolator.EASE_BOTH), new KeyValue(c.getPlaceholder().translateXProperty(), -c.getWrap().getWidth(), Interpolator.EASE_BOTH))))),
     /**
      * A swipe effect
      */
     SWIPE_RIGHT((c) ->
-            new ArrayList<>(Arrays.asList(new KeyFrame(Duration.ZERO, new KeyValue(c.getViewWrapper().translateXProperty(), -c.getViewWrapper().getWidth(), Interpolator.EASE_BOTH), new KeyValue(c.getPlaceholder().translateXProperty(), c.getViewWrapper().getWidth(), Interpolator.EASE_BOTH)),
-                    new KeyFrame(c.getDuration(), new KeyValue(c.getViewWrapper().translateXProperty(), 0, Interpolator.EASE_BOTH), new KeyValue(c.getPlaceholder().translateXProperty(), c.getViewWrapper().getWidth(), Interpolator.EASE_BOTH)))));
+            new ArrayList<>(Arrays.asList(new KeyFrame(Duration.ZERO, new KeyValue(c.getWrap().translateXProperty(), -c.getWrap().getWidth(), Interpolator.EASE_BOTH), new KeyValue(c.getPlaceholder().translateXProperty(), c.getWrap().getWidth(), Interpolator.EASE_BOTH)),
+                    new KeyFrame(c.getDuration(), new KeyValue(c.getWrap().translateXProperty(), 0, Interpolator.EASE_BOTH), new KeyValue(c.getPlaceholder().translateXProperty(), c.getWrap().getWidth(), Interpolator.EASE_BOTH)))));
 
     private Function<AnimatedFlowViewWrapper, List<KeyFrame>> animationProducer;
 

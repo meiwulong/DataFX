@@ -30,7 +30,6 @@ import io.datafx.core.ExceptionHandler;
 import io.datafx.flow.action.FlowAction;
 import io.datafx.flow.action.FlowLink;
 import io.datafx.flow.event.*;
-import io.datafx.flow.wrapper.DefaultFlowViewWrapper;
 import io.datafx.flow.wrapper.FlowViewWrapper;
 import io.datafx.util.ActionUtil;
 import io.datafx.util.Veto;
@@ -73,12 +72,8 @@ public class FlowHandler {
 		viewWrapper = new ReadOnlyObjectWrapper<>();
 	}
 
-	public void startInStage(Stage stage) throws FlowException {
-		startInStage(stage, new DefaultFlowViewWrapper());
-	}
-
-	public <T extends Parent> void startInStage(Stage stage, FlowViewWrapper<T> container) throws FlowException {
-		stage.setScene(new Scene(start(container)));
+	protected  <T extends Parent> void startInStage(Stage stage, FlowViewWrapper<T> viewWrapper) throws FlowException {
+		stage.setScene(new Scene(start(viewWrapper)));
 		currentView.addListener((e) -> {
 			stage.titleProperty().unbind();
 			stage.titleProperty().bind(currentView.get().titleProperty());
@@ -102,7 +97,7 @@ public class FlowHandler {
 		} catch (FxmlLoadException e) {
 			throw new FlowException(e);
 		}
-		return wrapper.getViewWrapper();
+		return wrapper.getWrap();
 	}
 
 
@@ -185,14 +180,11 @@ public class FlowHandler {
 
 	@SuppressWarnings("unchecked")
 	public <U> FlowView<U> switchView(Class<?> controller, boolean destroy) throws FlowException, FxmlLoadException {
-		FlowView<?> newView = viewMap.get(controller);
-		if(newView == null){
-			newView = new FlowView<>(flow, controller);
-		}
+		FlowView<?> newView = viewMap.getOrDefault(controller, new FlowView<>(flow, controller));
 		return (FlowView<U>) switchView(newView, destroy);
 	}
 
-	public <U> FlowView<U> switchView(FlowView<U> newView, boolean destroy) throws FlowException, FxmlLoadException {
+	public <U> FlowView<U> switchView(FlowView<U> newView, boolean destroy) throws FlowException {
 		FlowView<?> oldView = getCurrentView();
 
 		viewMap.put(newView.getControllerClazz(), newView);
@@ -204,6 +196,7 @@ public class FlowHandler {
 			if(destroy){
 				try {
 					viewMap.remove(oldView.getControllerClazz());
+					controllerHistory.remove(oldView);
 					oldView.destroy();
 				} catch (Exception e) {
 					throw new FlowException("Last ViewContext can't be destroyed!", e);
@@ -215,8 +208,14 @@ public class FlowHandler {
 		return newView;
 	}
 
-	public void navigateBack() throws VetoException, FlowException, FxmlLoadException {
-		switchView(controllerHistory.remove(0), true);
+	/** 导航上一视图（默认销毁现有视图） */
+	public void navigateBack() throws  FlowException {
+		navigateBack(true);
+	}
+
+	/** 导航上一视图 */
+	public void navigateBack(boolean destroyed) throws FlowException {
+		switchView(controllerHistory.remove(0), destroyed);
 	}
 
 	public ObservableList<FlowView<?>> getControllerHistory() {
@@ -230,7 +229,8 @@ public class FlowHandler {
 	 * @throws FlowException
 	 */
 	public void navigateTo(Class<?> controllerClass) throws VetoException, FlowException {
-		handle(new FlowLink(controllerClass), "navigateAction-" + UUID.randomUUID().toString());
+		handle(new FlowLink<>(controllerClass),
+				"navigateAction-" + UUID.randomUUID().toString());
 	}
 
 	public void attachAction(Node node, Runnable action) {
@@ -268,7 +268,7 @@ public class FlowHandler {
 	private void handleBackActionWithExceptionHandler() {
 		try {
 			navigateBack();
-		} catch (VetoException | FxmlLoadException | FlowException e) {
+		} catch (FlowException e) {
 			getExceptionHandler().setException(e);
 		}
 	}

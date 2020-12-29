@@ -26,6 +26,8 @@
  */
 package io.datafx.flow;
 
+import java.io.Serial;
+
 /**
  * Default Exception Type for the Flow API
  *
@@ -33,6 +35,7 @@ package io.datafx.flow;
  */
 public class FlowException extends Exception {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**

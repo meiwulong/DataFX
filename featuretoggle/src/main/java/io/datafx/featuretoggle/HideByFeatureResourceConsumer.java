@@ -1,7 +1,7 @@
 package io.datafx.featuretoggle;
 
-import io.datafx.flow.view.resource.ControllerResourceConsumer;
 import io.datafx.flow.FlowView;
+import io.datafx.flow.action.resource.ControllerResourceConsumer;
 import javafx.scene.Node;
 
 public class HideByFeatureResourceConsumer implements ControllerResourceConsumer<HideByFeature, Node> {

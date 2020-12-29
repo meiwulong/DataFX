@@ -41,11 +41,7 @@ public class FlowBackAction implements FlowAction {
     @Override
     public void handle(final FlowHandler flowHandler, final String actionId)
             throws FlowException {
-        try {
-            Assert.requireNonNull(flowHandler, "flowHandler").navigateBack();
-        } catch (VetoException | FxmlLoadException e) {
-            throw new FlowException(e);
-        }
+	    Assert.requireNonNull(flowHandler, "flowHandler").navigateBack();
     }
 
 }

@@ -37,7 +37,7 @@ public class TabFlowWrapper implements FlowViewWrapper<Tab> {
 //				exceptionHandler.setException(exception);
 //			}
 //		});
-		tab.setContent(innerWrapper.getViewWrapper());
+		tab.setContent(innerWrapper.getWrap());
 	}
 
 	@Override
@@ -46,7 +46,7 @@ public class TabFlowWrapper implements FlowViewWrapper<Tab> {
 	}
 
 	@Override
-	public Tab getViewWrapper() {
+	public Tab getWrap() {
 		return tab;
 	}
 }

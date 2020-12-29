@@ -127,7 +127,7 @@ public class AnimatedFlowViewWrapper implements FlowViewWrapper<StackPane> {
     }
 
     @Override
-    public StackPane getViewWrapper() {
+    public StackPane getWrap() {
         return root;
     }
 

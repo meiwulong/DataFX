@@ -29,11 +29,11 @@ package io.datafx.flow;
 import io.datafx.core.DataFXUtils;
 import io.datafx.core.ExceptionHandler;
 import io.datafx.flow.action.*;
-import io.datafx.flow.action.FlowActionHandler;
 import io.datafx.flow.view.ViewController;
 import io.datafx.flow.wrapper.DefaultFlowViewWrapper;
 import io.datafx.flow.wrapper.FlowViewWrapper;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -355,6 +355,10 @@ public class Flow {
 		getHandler().startInStage(stage, new DefaultFlowViewWrapper());
 	}
 
+	public <T extends Parent> void startInStage(Stage stage, FlowViewWrapper<T> viewWrapper) throws FlowException {
+		getHandler().startInStage(stage, new DefaultFlowViewWrapper());
+	}
+
 	/** 封装流容器*/
 	public <T extends Node> void wrap(StackPane pane) throws FlowException {
 		wrap(new DefaultFlowViewWrapper(pane));
@@ -388,5 +392,10 @@ public class Flow {
 
 	public void register(String key, final Object value) {
 		dataMap.put(key, value);
+	}
+
+
+	public <T extends Node> T getViewWrap(){
+		return (T) getHandler().getViewWrapper().getWrap();
 	}
 }

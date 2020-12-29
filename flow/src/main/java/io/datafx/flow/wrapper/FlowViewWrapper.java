@@ -40,6 +40,6 @@ public interface FlowViewWrapper<T extends EventTarget> {
     <U> void switchView(FlowView<U> view);
 
     /** 视图封装容器, 流中视图的容器 */
-    T getViewWrapper();
+    T getWrap();
 
 }
