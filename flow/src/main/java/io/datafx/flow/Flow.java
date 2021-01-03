@@ -40,6 +40,7 @@ import javafx.stage.Stage;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * This class defines a flow. A flow is a map of different views that are linked.
@@ -56,7 +57,7 @@ public class Flow {
 	private ViewConfiguration viewConfiguration;
 	private FlowHandler handler;
 
-	private Map<String, Object> dataMap = new HashMap<>();
+	private Map<String, Object> dataMap = new ConcurrentHashMap<>();
 
 	/**
 	 * Creates a new Flow with the given controller for the start view and a
@@ -380,14 +381,14 @@ public class Flow {
 
 
 	public <R> R getRegisteredObject(Class<R> clazz) {
-		return getRegisteredObject(clazz.toString());
+		return getRegisteredObject(getClassRegisterKey(clazz));
 	}
 	public <R> R getRegisteredObject(String key) {
 		return (R) dataMap.get(key);
 	}
 
 	public void register(final Object value) {
-		register(value.getClass().toString(), value);
+		register(getClassRegisterKey(value.getClass()), value);
 	}
 
 	public void register(String key, final Object value) {
@@ -397,5 +398,13 @@ public class Flow {
 
 	public <T extends Node> T getViewWrap(){
 		return (T) getHandler().getViewWrapper().getWrap();
+	}
+
+	public void unregister(final Object value) {
+		dataMap.values().remove(value);
+	}
+
+	public static String getClassRegisterKey(Class<?> clazz){
+		return clazz.toString();
 	}
 }

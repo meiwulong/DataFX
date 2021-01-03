@@ -89,12 +89,12 @@ public class FlowView<T> {
 
 	public FlowView(Flow flow, Class<T> controllerClazz, String fxmlName) throws FxmlLoadException {
 	    try {
-//	    	this.register(this);
 //		    this.register(new FlowActionHandler(flow.getHandler()));
 	    	this.flow = flow;
 	    	this.controllerClazz = controllerClazz;
 		    // 1. Create an instance of the Controller
 		    controller = controllerClazz.getDeclaredConstructor().newInstance();
+		    flow.register(controller);
 		    ViewController controllerAnnotation = controllerClazz.getAnnotation(ViewController.class);
 		    if (controllerAnnotation != null && !controllerAnnotation.title().isEmpty()) {
 			    setTitle(controllerAnnotation.title());
@@ -326,6 +326,7 @@ public class FlowView<T> {
 					DataFXUtils.callPrivileged(method, getController());
 				}
 			}
+			flow.unregister(controller);
 			this.controller = null;
 		}
 		this.viewNode = null;

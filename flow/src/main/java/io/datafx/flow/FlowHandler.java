@@ -198,6 +198,7 @@ public class FlowHandler {
 					viewMap.remove(oldView.getControllerClazz());
 					controllerHistory.remove(oldView);
 					oldView.destroy();
+					flow.unregister(oldView);
 				} catch (Exception e) {
 					throw new FlowException("Last ViewContext can't be destroyed!", e);
 				}
