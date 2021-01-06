@@ -180,7 +180,10 @@ public class FlowHandler {
 
 	@SuppressWarnings("unchecked")
 	public <U> FlowView<U> switchView(Class<?> controller, boolean destroy) throws FlowException, FxmlLoadException {
-		FlowView<?> newView = viewMap.getOrDefault(controller, new FlowView<>(flow, controller));
+		FlowView<?> newView = viewMap.get(controller);
+		if(newView == null){
+			newView = new FlowView<>(flow, controller);
+		}
 		return (FlowView<U>) switchView(newView, destroy);
 	}
 
