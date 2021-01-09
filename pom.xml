@@ -2,9 +2,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.javafxdata</groupId>
+    <groupId>io.datafx</groupId>
     <artifactId>datafx-parent</artifactId>
-    <version>8.10-SNAPSHOT</version>
+    <version>15.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>

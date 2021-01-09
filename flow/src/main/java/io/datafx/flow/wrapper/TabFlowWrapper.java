@@ -41,8 +41,8 @@ public class TabFlowWrapper implements FlowViewWrapper<Tab> {
 	}
 
 	@Override
-	public <U> void switchView(FlowView<U> view) {
-		innerWrapper.switchView(view);
+	public <U> void switchView(FlowView<U> view, boolean remove) {
+		innerWrapper.switchView(view, remove);
 	}
 
 	@Override

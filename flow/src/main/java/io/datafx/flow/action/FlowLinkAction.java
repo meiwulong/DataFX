@@ -26,16 +26,16 @@
  */
 package io.datafx.flow.action;
 
-import io.datafx.flow.FxmlLoadException;
+import io.datafx.core.Assert;
 import io.datafx.flow.FlowException;
 import io.datafx.flow.FlowHandler;
-import io.datafx.core.Assert;
+import io.datafx.flow.FxmlLoadException;
 
 /**
  * A {@link FlowAction} implementation that navigates to a different view in a flow.
  * @param <T> class of the controller of the target view
  */
-public class FlowLink<T> implements FlowAction {
+public class FlowLinkAction<T> implements FlowAction {
 
     private final Class<T> controllerClazz;
 
@@ -43,7 +43,7 @@ public class FlowLink<T> implements FlowAction {
      * Default constructor of the class
      * @param controllerClazz controller class of the target view
      */
-    public FlowLink(final Class<T> controllerClazz) {
+    public FlowLinkAction(final Class<T> controllerClazz) {
         this.controllerClazz = controllerClazz;
     }
 	

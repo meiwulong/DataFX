@@ -89,14 +89,16 @@ public class AnimatedFlowViewWrapper implements FlowViewWrapper<StackPane> {
         placeholder = new ImageView();
         placeholder.setPreserveRatio(true);
         placeholder.setSmooth(true);
+	    root.getChildren().add(placeholder);
+	    clearPlaceholder(null);
     }
 
     @Override
-    public <U> void switchView(FlowView<U> view) {
+    public <U> void switchView(FlowView<U> view, boolean remove) {
         if (animation != null) {
             animation.stop();
         }
-	    updatePlaceholder(view.getViewNode());
+	    updatePlaceholder(view.getViewNode(), remove);
 
         animation = new Timeline();
         animation.getKeyFrames().addAll(animationProducer.apply(this));
@@ -131,7 +133,7 @@ public class AnimatedFlowViewWrapper implements FlowViewWrapper<StackPane> {
         return root;
     }
 
-    private void updatePlaceholder(Node newView) {
+    private void updatePlaceholder(Node newView, boolean remove) {
         if (root.getWidth() > 0 && root.getHeight() > 0) {
             Image placeholderImage = root.snapshot(null, new WritableImage((int) root.getWidth(), (int) root.getHeight()));
             placeholder.setImage(placeholderImage);
@@ -142,7 +144,11 @@ public class AnimatedFlowViewWrapper implements FlowViewWrapper<StackPane> {
         }
         placeholder.setVisible(true);
         placeholder.setOpacity(1.0);
-        root.getChildren().setAll(placeholder, newView);
+	    if(remove) root.getChildren().removeIf(Node::isVisible);
+        root.getChildren().forEach(e->e.setVisible(e == newView));
+        if(!root.getChildren().contains(newView)){
+	        root.getChildren().add(newView);
+        }
 //        root.getChildren().add(newView);
         placeholder.toFront();
 

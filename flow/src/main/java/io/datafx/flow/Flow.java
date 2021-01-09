@@ -39,7 +39,9 @@ import javafx.stage.Stage;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -59,6 +61,8 @@ public class Flow {
 
 	private Map<String, Object> dataMap = new ConcurrentHashMap<>();
 
+	private Set<Class<?>> controllerSet = new HashSet<>();
+
 	/**
 	 * Creates a new Flow with the given controller for the start view and a
 	 * view configuration for all views.
@@ -71,11 +75,13 @@ public class Flow {
 	 */
 	public Flow(Class<?> startControllerClazz, ViewConfiguration viewConfiguration) {
 		this.startControllerClazz = startControllerClazz;
+		controllerSet.add(startControllerClazz);
 		globalFlowMap = new HashMap<>();
 		viewFlowMap = new HashMap<>();
 		this.viewConfiguration = viewConfiguration;
 		this.handler = createHandler();
 		register(handler);
+
 		register(new FlowActionHandler(handler));
 	}
 
@@ -124,6 +130,19 @@ public class Flow {
 	}
 
 	/**
+	 * Adds a global back action to the flow that navigates back to the last view of a flow. Internally a
+	 * {@link FlowBackAction} will be created and added to the flow.
+	 *
+	 * @param actionId unique action id
+	 * @return returns this flow (for the fluent API)
+	 * @see FlowBackAction
+	 */
+	public Flow withGlobalBackAction(String actionId) {
+		addGlobalAction(actionId, new FlowBackAction());
+		return this;
+	}
+
+	/**
 	 * Adds a task action as a global action to the flow. Internally a {@link FlowTaskAction} will be created and
 	 * added to the flow. As you can read in the documentation of {@link FlowTaskAction} a instance of the given
 	 * {@code actionClass} will be created and executed whenever the action will be called.
@@ -153,29 +172,17 @@ public class Flow {
 	}
 
 	/**
-	 * Adds a link action as a global action to the flow. Internally a {@link FlowLink} will be created and added
+	 * Adds a link action as a global action to the flow. Internally a {@link FlowLinkAction} will be created and added
 	 * to the flow.
 	 *
 	 * @param actionId        unique action id
 	 * @param controllerClass the controller of the view that should be shown whenever the action will be called
 	 * @return returns this flow (for the fluent API)
-	 * @see FlowLink
+	 * @see FlowLinkAction
 	 */
-	public Flow withGlobalLink(String actionId, Class<?> controllerClass) {
-		addGlobalAction(actionId, new FlowLink<>(controllerClass));
-		return this;
-	}
-
-	/**
-	 * Adds a global back action to the flow that navigates back to the last view of a flow. Internally a
-	 * {@link FlowBackAction} will be created and added to the flow.
-	 *
-	 * @param actionId unique action id
-	 * @return returns this flow (for the fluent API)
-	 * @see FlowBackAction
-	 */
-	public Flow withGlobalBackAction(String actionId) {
-		addGlobalAction(actionId, new FlowBackAction());
+	public Flow withGlobalLinkAction(String actionId, Class<?> controllerClass) {
+		controllerSet.add(controllerClass);
+		addGlobalAction(actionId, new FlowLinkAction<>(controllerClass));
 		return this;
 	}
 
@@ -196,17 +203,18 @@ public class Flow {
 
 	/**
 	 * Adds a navigation action to the flow that will navigate from one view to another. The two controller classes that
-	 * must be passed as parameters defines the origin view and the destination. Internally a {@link FlowLink} will be
+	 * must be passed as parameters defines the origin view and the destination. Internally a {@link FlowLinkAction} will be
 	 * created and added to the flow.
 	 *
 	 * @param fromControllerClass the controller class of the view that is the origin of the navigation
 	 * @param actionId            unique action id
 	 * @param toControllerClass   the controller class of the view that is the destination of the navigation
 	 * @return returns this flow (for the fluent API)
-	 * @see FlowLink
+	 * @see FlowLinkAction
 	 */
 	public Flow withLink(Class<?> fromControllerClass, String actionId, Class<?> toControllerClass) {
-		addActionToView(fromControllerClass, actionId, new FlowLink<>(toControllerClass));
+		controllerSet.add(toControllerClass);
+		addActionToView(fromControllerClass, actionId, new FlowLinkAction<>(toControllerClass));
 		return this;
 	}
 
@@ -265,6 +273,7 @@ public class Flow {
 	 * @see FlowAction
 	 */
 	public Flow addActionToView(Class<?> controllerClass, String actionId, FlowAction action) {
+		controllerSet.add(controllerClass);
 		viewFlowMap.computeIfAbsent(controllerClass, k -> new HashMap<>());
 		viewFlowMap.get(controllerClass).put(actionId, action);
 		return this;
@@ -406,5 +415,10 @@ public class Flow {
 
 	public static String getClassRegisterKey(Class<?> clazz){
 		return clazz.toString();
+	}
+
+	public Flow initActionControllers() {
+		controllerSet.forEach(getHandler()::createFlowView);
+		return this;
 	}
 }

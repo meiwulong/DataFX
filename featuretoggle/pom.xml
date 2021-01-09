@@ -3,9 +3,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.javafxdata</groupId>
+        <groupId>io.datafx</groupId>
         <artifactId>datafx-parent</artifactId>
-        <version>8.10-SNAPSHOT</version>
+        <version>15.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -13,7 +13,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.javafxdata</groupId>
+            <groupId>io.datafx</groupId>
             <artifactId>datafx-flow</artifactId>
             <version>${project.version}</version>
         </dependency>

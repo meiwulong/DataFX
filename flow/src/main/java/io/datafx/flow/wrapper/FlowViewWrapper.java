@@ -37,7 +37,7 @@ public interface FlowViewWrapper<T extends EventTarget> {
 
 	/** 切换视图
 	 * @param view*/
-    <U> void switchView(FlowView<U> view);
+    <U> void switchView(FlowView<U> view, boolean remove);
 
     /** 视图封装容器, 流中视图的容器 */
     T getWrap();

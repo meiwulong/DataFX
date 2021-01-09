@@ -27,6 +27,7 @@
 package io.datafx.flow.wrapper;
 
 import io.datafx.flow.FlowView;
+import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 
 /**
@@ -58,8 +59,15 @@ public class DefaultFlowViewWrapper implements FlowViewWrapper<StackPane> {
     }
 
     @Override
-    public <U> void switchView(FlowView<U> view) {
-        pane.getChildren().clear();
-        pane.getChildren().add(view.getViewNode());
+    public <U> void switchView(FlowView<U> view, boolean remove) {
+    	// 隐藏比添加/删除快
+	    if(remove){
+		    pane.getChildren().removeIf(Node::isVisible);
+	    }
+	    pane.getChildren().forEach(e->e.setVisible(e == view.getViewNode()));
+	    if(!pane.getChildren().contains(view.getViewNode())){
+		    pane.getChildren().add(view.getViewNode());
+	    }
+
     }
 }

@@ -28,9 +28,6 @@ package io.datafx.flow.action;
 
 import io.datafx.flow.FxmlLoadException;
 import io.datafx.flow.FlowHandler;
-import io.datafx.flow.action.FlowAction;
-import io.datafx.flow.action.FlowLink;
-import io.datafx.flow.action.FlowTaskAction;
 import io.datafx.util.VetoException;
 import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
@@ -56,7 +53,7 @@ public class FlowActionHandler {
     }
 
     public <T> void navigate(Class<T> controllerClass) throws VetoException, FlowException {
-        handleAction(new FlowLink<>(controllerClass));
+        handleAction(new FlowLinkAction<>(controllerClass));
     }
 
     public <T> void navigateBack() throws VetoException, FlowException, FxmlLoadException {

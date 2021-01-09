@@ -43,8 +43,9 @@ public class Tutorial4Main extends Application {
                 withLink(Wizard2Controller.class, "next", Wizard3Controller.class).
                 withLink(Wizard3Controller.class, "next", WizardDoneController.class).
                 withGlobalBackAction("back").
-                withGlobalLink("finish", WizardDoneController.class).
+		        withGlobalLinkAction("finish", WizardDoneController.class).
                 withGlobalTaskAction("help", () -> System.out.println("There is no help for the application :(")).
+		        initActionControllers().
                 startInStage(primaryStage);
     }
 }

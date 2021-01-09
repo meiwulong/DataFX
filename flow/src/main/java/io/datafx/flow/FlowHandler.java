@@ -28,7 +28,7 @@ package io.datafx.flow;
 
 import io.datafx.core.ExceptionHandler;
 import io.datafx.flow.action.FlowAction;
-import io.datafx.flow.action.FlowLink;
+import io.datafx.flow.action.FlowLinkAction;
 import io.datafx.flow.event.*;
 import io.datafx.flow.wrapper.FlowViewWrapper;
 import io.datafx.util.ActionUtil;
@@ -182,17 +182,28 @@ public class FlowHandler {
 	public <U> FlowView<U> switchView(Class<?> controller, boolean destroy) throws FlowException, FxmlLoadException {
 		FlowView<?> newView = viewMap.get(controller);
 		if(newView == null){
-			newView = new FlowView<>(flow, controller);
+			newView = createFlowView(controller);
 		}
 		return (FlowView<U>) switchView(newView, destroy);
+	}
+
+	public FlowView<?> createFlowView(Class<?> controller) {
+		FlowView<?> newView = null;
+		try {
+			newView = new FlowView<>(flow, controller);
+			viewMap.put(newView.getControllerClazz(), newView);
+			System.out.println("controller init " + controller);
+		} catch (FxmlLoadException e) {
+			e.printStackTrace();
+		}
+		return newView;
 	}
 
 	public <U> FlowView<U> switchView(FlowView<U> newView, boolean destroy) throws FlowException {
 		FlowView<?> oldView = getCurrentView();
 
-		viewMap.put(newView.getControllerClazz(), newView);
 		currentView.set(newView);
-		viewWrapper.get().switchView(newView);
+		viewWrapper.get().switchView(newView, destroy);
 		newView.show();
 		if (oldView != null) {
 			oldView.hide();
@@ -233,7 +244,7 @@ public class FlowHandler {
 	 * @throws FlowException
 	 */
 	public void navigateTo(Class<?> controllerClass) throws VetoException, FlowException {
-		handle(new FlowLink<>(controllerClass),
+		handle(new FlowLinkAction<>(controllerClass),
 				"navigateAction-" + UUID.randomUUID().toString());
 	}
 
